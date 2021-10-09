@@ -1,9 +1,4 @@
-import Handlebars from 'handlebars';
 import '../../../static/sass/custom.scss'
+import {authTmpl} from "../../templates/auth.tmpl";
 
-const string = "<div class='content'></div>"
-
-let template = Handlebars.compile(string);
-
-
-document.getElementById('page').innerHTML = template();
+document.getElementById('page').innerHTML = authTmpl;
