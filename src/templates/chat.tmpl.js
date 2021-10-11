@@ -1,4 +1,4 @@
-import Handlebars from "../../static/lib/handlebars-v4.7.7";
+import Handlebars from "handlebars";
 import "./partials/wrapper_center_layout.tmpl";
 import {headerTmpl} from "./partials/header_layout.tmpl";
 
@@ -38,7 +38,7 @@ const chat = `${headerTmpl({withActions: true})}
                 </div>
                 <div class="chat_preview_info">
                     <div class="chat_preview_count">1</div>
-                    <div class="chat_preview_time">10:00</div>
+                    <time class="chat_preview_time">10:00</time>
                     <div class="avatar chat_preview_avatar">
                         <img src="${defaultAvatar}" alt="avatar">
                     </div>
@@ -57,7 +57,7 @@ const chat = `${headerTmpl({withActions: true})}
                 </div>
                 <div class="chat_preview_info">
                     <div class="chat_preview_count">22</div>
-                    <div class="chat_preview_time">23.12.21</div>
+                    <time class="chat_preview_time">23.12.21</time>
                     <div class="avatar chat_preview_avatar">
                         <img src="${defaultAvatar}" alt="avatar">
                     </div>
@@ -77,7 +77,7 @@ const chat = `${headerTmpl({withActions: true})}
     
             <div class="chat_dialog_messages_container">
                 <div class="dialog_day_container">
-                    <div class="dialog_date">06.10.21</div>
+                    <time class="dialog_date">06.10.21</time>
     
                     <div class="dialog_message_container">
                         <div class="dialog_message_item">
@@ -95,9 +95,9 @@ const chat = `${headerTmpl({withActions: true})}
                                     </div>
                                 </div>
                                 <div class="dialog_message_info">
-                                    <div class="dialog_message_time">
+                                    <time class="dialog_message_time">
                                         23.12
-                                    </div>
+                                    </time>
                                     <div class="dialog_message_status"></div>
                                 </div>
                             </div>
@@ -120,9 +120,9 @@ const chat = `${headerTmpl({withActions: true})}
                                     </div>
                                 </div>
                                 <div class="dialog_message_info">
-                                    <div class="dialog_message_time">
+                                    <time class="dialog_message_time">
                                         23.12
-                                    </div>
+                                    </time>
                                     <div class="dialog_message_status read"></div>
                                 </div>
                             </div>
@@ -134,10 +134,10 @@ const chat = `${headerTmpl({withActions: true})}
             <div class="chat_dialog_message_editor">
                 <form action="#" class="form_message" method="post">
                     <div class="message_editor">
-                        <textarea class="message_textarea"></textarea>
+                        <textarea name="message" class="message_textarea"></textarea>
                     </div>
                     <div class="message_buttons">
-                        <button class="message_buttons_attach_file">
+                        <button type="button" class="message_buttons_attach_file">
                             <img src=${iconsUrl.attach} alt="attach_file">
                         </button>
                         <button type="submit" class="button message_buttons_send">

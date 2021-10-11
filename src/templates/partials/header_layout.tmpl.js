@@ -1,5 +1,4 @@
-import Handlebars from "../../../static/lib/handlebars-v4.7.7";
-
+import Handlebars from "handlebars";
 const header = `<header class="header_wrapper">
         <div class="header_actions">
          {{#if withActions}}

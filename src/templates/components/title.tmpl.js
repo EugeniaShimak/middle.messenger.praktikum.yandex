@@ -1,5 +1,4 @@
-import Handlebars from "../../../static/lib/handlebars-v4.7.7";
-
+import Handlebars from "handlebars";
 const titleComponent = `<div class="title"><{{tag}}>{{title}}</{{tag}}></div>`;
 
 export const titleTmpl = Handlebars.compile(titleComponent);

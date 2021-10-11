@@ -2,7 +2,11 @@
 
 
 Ссылка на прототип в фигме https://www.figma.com/file/GdcudTtdkoOazIj4UGwMRI/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82-%D1%87%D0%B0%D1%82%D0%B0?node-id=0%3A1
+
+Ссылка на netify https://deploy-preview-1--lucid-ardinghelli-54263f.netlify.app/?utm_source=github&utm_campaign=bot_dp
+
 Все команды нужно запускать из корня проекта.
+
 
 Подготовка к запуску:
 1) Установите Node

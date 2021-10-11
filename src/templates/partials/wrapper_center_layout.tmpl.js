@@ -1,5 +1,4 @@
-import Handlebars from "../../../static/lib/handlebars-v4.7.7";
-
+import Handlebars from "handlebars";
 const wrapperCenter = `<div class="container_center">
         <div class="wrapper_middle">{{> @partial-block }}</div>
     </div>`;

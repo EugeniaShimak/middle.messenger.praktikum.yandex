@@ -1,5 +1,5 @@
+import Handlebars from "handlebars";
 import {buttonTmpl} from "./components/button.tmpl";
-import Handlebars from "../../static/lib/handlebars-v4.7.7";
 import "./partials/wrapper_center_layout.tmpl";
 import {headerTmpl} from "./partials/header_layout.tmpl";
 import {titleTmpl} from "./components/title.tmpl";

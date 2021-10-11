@@ -5,6 +5,18 @@
   "engines": {
     "node": ">=0.12"
   },
+  "source": "static/index.html",
+  "web": "dist/index.html",
+  "targets": {
+    "web": {
+      "engines": {
+        "browsers": [
+          "> 1%",
+          "not dead"
+        ]
+      }
+    }
+  },
   "scripts": {
     "start": "node_modules/.bin/parcel static/index.html --port 3000",
     "build": "node_modules/.bin/parcel build static/index.html",
