@@ -1,0 +1,6 @@
+/.parcel-cache/
+/.idea/
+/package-lock.json
+/Chat.iml
+/node_modules/
+/dist/

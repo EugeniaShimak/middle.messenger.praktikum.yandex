@@ -1,0 +1,35 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=0.12"
+  },
+  "source": "static/index.html",
+  "web": "dist/index.html",
+  "targets": {
+    "web": {
+      "engines": {
+        "browsers": [
+          "> 1%",
+          "not dead"
+        ]
+      }
+    }
+  },
+  "scripts": {
+    "start": "node_modules/.bin/parcel static/index.html --port 3000",
+    "build": "node_modules/.bin/parcel build static/index.html",
+    "server": "node server.js"
+  },
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
+    "express": "^4.17.1",
+    "parcel": "^2.0.0-rc.0",
+    "sass": "^1.42.1"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
