@@ -1,0 +1,1 @@
+export const buttonTmpl = `<button type="{{type}}" class="button {{classesButton}}">{{{label}}}</button>`;
