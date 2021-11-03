@@ -5,6 +5,8 @@
 
 Ссылка на netify https://lucid-ardinghelli-54263f.netlify.app/
 
+Ссылка на PR https://github.com/EugeniaShimak/middle.messenger.praktikum.yandex/pull/2
+
 Все команды нужно запускать из корня проекта.
 
 
