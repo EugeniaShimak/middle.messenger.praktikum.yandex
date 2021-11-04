@@ -1,14 +1,14 @@
-import {chatPreviewTmpl, chatTmpl, dayContainerTmpl, iconsUrl, messageFormTmpl, messageTmpl} from "./chat.tmpl";
-import Block from "../../utils/services/Block";
+import {chatPreviewTmpl, chatTmpl, dayContainerTmpl, iconsUrl, messageFormTmpl, messageTmpl} from './chat.tmpl';
+import Block from '../../utils/services/Block';
 import {
     compileHandlebars,
     getContentFromComponentProps,
-} from "../../utils/functions/manipulateDOM";
-import Button from "../common/components/button";
-import Form from "../common/components/form";
-import Input from "../common/components/input";
-import {PATTERNS} from "../../utils/consts";
-import {objectStrings} from "../../utils/interfaces";
+} from '../../utils/functions/manipulateDOM';
+import Button from '../common/components/button';
+import Form from '../common/components/form';
+import Input from '../common/components/input';
+import {PATTERNS} from '../../utils/consts';
+import {TObjectStrings} from '../../utils/interfaces';
 
 const data = {
     chats: [
@@ -111,7 +111,7 @@ const getMessageBlock = (messages: IMessage[]) => {
 class ChatPreview extends Block {
     constructor(props: IChat) {
         const {active} = props;
-        super("div", {
+        super('div', {
             ...props,
             classes: ['chat_preview', ...(active ? ['active'] : [])],
             settings: {withInternalID: true},
@@ -127,7 +127,7 @@ class ChatPreview extends Block {
 
 class DayContainer extends Block {
     constructor(props: IDay) {
-        super("div", {
+        super('div', {
             ...props,
             classes: ['dialog_day_container'],
             settings: {withInternalID: true},
@@ -147,7 +147,7 @@ class MessageBlock extends Block {
         const {
             myMessage
         } = props;
-        super("div", {
+        super('div', {
             ...props,
             classes: ['dialog_message_container', ...(myMessage ? ['my_message'] : [])],
             settings: {withInternalID: true},
@@ -165,7 +165,7 @@ export default class ChatPage extends Block {
     constructor(props: IChatPage) {
         const {currentDialogId} = props;
 
-        super("div", {
+        super('div', {
             ...props,
             currentDialogId,
             classes: ['container_page'],
@@ -174,7 +174,7 @@ export default class ChatPage extends Block {
             messageForm: new Form({
                 formTmpl: messageFormTmpl,
                 classes: ['form_message'],
-                submit: (e: Event, values: objectStrings) => {
+                submit: (e: Event, values: TObjectStrings) => {
                     console.log(e, values);
                 },
                 buttonSubmit: new Button({

@@ -18,11 +18,11 @@
     }
   },
   "scripts": {
-    "start": "node_modules/.bin/parcel static/index.html --port 3000",
-    "build": "node_modules/.bin/parcel build static/index.html",
+    "start": "parcel static/index.html --port 3000",
+    "build": "parcel build static/index.html",
     "server": "node server.js",
-    "stylelint": "npx stylelint \"**/*.scss\"",
-    "eslint": "npx eslint \"**/*.ts\""
+    "stylelint": "stylelint \"**/*.scss\" --fix",
+    "eslint": "eslint \"**/*.ts\" --fix"
   },
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",

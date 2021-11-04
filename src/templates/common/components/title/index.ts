@@ -1,6 +1,6 @@
-import Block from "../../../../utils/services/Block";
-import {titleTmpl} from "./title.tmpl";
-import {compileHandlebars} from "../../../../utils/functions/manipulateDOM";
+import Block from '../../../../utils/services/Block';
+import {titleTmpl} from './title.tmpl';
+import {compileHandlebars} from '../../../../utils/functions/manipulateDOM';
 
 interface ITitle {
     tag?: string,
@@ -9,7 +9,7 @@ interface ITitle {
 
 export default class Title extends Block {
     constructor(props: ITitle) {
-        super("div", {
+        super('div', {
             ...props,
             classes: ['title']
         });

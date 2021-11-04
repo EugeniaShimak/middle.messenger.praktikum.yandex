@@ -1,4 +1,4 @@
-import "../common/partials/wrapper_center_layout.tmpl";
+import '../common/partials/wrapper_center_layout.tmpl';
 
 export const authTmpl = `{{#> wrapperCenter}}
                         {{{title}}}

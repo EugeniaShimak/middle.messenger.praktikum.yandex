@@ -1,4 +1,4 @@
-import Button from "../../common/components/button";
+import Button from '../../common/components/button';
 
 export const buttonReturnToChats = new Button({
     type: 'button',

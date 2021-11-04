@@ -1,4 +1,4 @@
-import {objectStrings} from "../interfaces";
+import {TObjectStrings} from '../interfaces';
 
 const METHODS = {
     GET: 'GET',
@@ -9,15 +9,14 @@ const METHODS = {
 
 const TIMEOUT = 5000;
 
-type data = any;
-type headers = objectStrings;
+type TData = any;
 
-type options = {
-    method: string, data?: data, headers?: headers, retries?: number, timeout?: number
+type TOptions = {
+    method: string, data?: TData, headers?: TObjectStrings, retries?: number, timeout?: number
 }
 
-function queryStringify(data: data) {
-    if (typeof data !== 'object') {
+function queryStringify(data: TData) {
+    if (!data || typeof data !== 'object') {
         throw new Error('Data must be object');
     }
     const keys = Object.keys(data);
@@ -27,23 +26,23 @@ function queryStringify(data: data) {
 }
 
 class HTTPTransport {
-    get = (url: string, options: options) => {
+    get = (url: string, options: TOptions) => {
         return this.request(url, {...options, method: METHODS.GET}, options.timeout);
     };
 
-    post = (url: string, options: options) => {
+    post = (url: string, options: TOptions) => {
         return this.request(url, {...options, method: METHODS.POST}, options.timeout);
     };
 
-    put = (url: string, options: options) => {
+    put = (url: string, options: TOptions) => {
         return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
     };
 
-    delete = (url: string, options: options) => {
+    delete = (url: string, options: TOptions) => {
         return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
     };
 
-    request = (url: string, options: options, timeout: number = TIMEOUT) => {
+    request = (url: string, options: TOptions, timeout: number = TIMEOUT) => {
         const {method, data = {}, headers = {}} = options;
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -53,10 +52,15 @@ class HTTPTransport {
 
             Object.keys(headers).forEach(key => {
                 xhr.setRequestHeader(key, headers[key]);
+                xhr.setRequestHeader('Content-Type', 'application/json');
             });
 
             xhr.onload = function () {
-                resolve(xhr);
+                if (xhr.status >= 200 && xhr.status <= 299) {
+                    resolve(xhr);
+                } else {
+                    reject(xhr);
+                }
             };
 
             xhr.onabort = reject;
@@ -73,7 +77,7 @@ class HTTPTransport {
     };
 }
 
-function fetchWithRetry(url: string, options: options) {
+function fetchWithRetry(url: string, options: TOptions) {
     const {retries = 1} = options;
 
     function onError(err: object): object {
@@ -85,7 +89,7 @@ function fetchWithRetry(url: string, options: options) {
         return fetchWithRetry(url, {...options, retries: triesLeft});
     }
 
-    const req = (url: string, options: options): Promise<any> => {
+    const req = (url: string, options: TOptions): Promise<any> => {
         const http = new HTTPTransport();
         switch (options.method) {
             case METHODS.GET:

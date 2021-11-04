@@ -1,7 +1,7 @@
-import Block from "../../../../utils/services/Block";
-import {inputTmpl, textareaTmpl, wrapperInputTmpl} from "./input.tmpl";
-import {compileHandlebars, getValueAndNameTarget} from "../../../../utils/functions/manipulateDOM";
-import {HTMLElementEventInputOrTextArea} from "../../../../utils/interfaces";
+import Block from '../../../../utils/services/Block';
+import {inputTmpl, textareaTmpl, wrapperInputTmpl} from './input.tmpl';
+import {compileHandlebars, getValueAndNameTarget} from '../../../../utils/functions/manipulateDOM';
+import {THTMLElementEventInputOrTextArea} from '../../../../utils/interfaces';
 
 interface IInputProps {
     name: string,
@@ -31,7 +31,7 @@ class InputField extends Block {
         const {
             blur, focus, keyup, ...rest
         } = props;
-        super("div", {
+        super('div', {
             ...rest,
             events: {
                 blur,
@@ -53,7 +53,7 @@ export default class Input extends Block {
         const {
             blur, focus, type, name, keyup, error, pattern, errorMessage, classes = [], textarea, ...rest
         } = props;
-        super("div", {
+        super('div', {
             ...rest,
             pattern,
             classes: [...classes, 'input_wrapper', error ? 'error' : 'valid', ...(textarea ? ['textarea'] : [])],
@@ -61,12 +61,12 @@ export default class Input extends Block {
             error,
             errorMessage,
             input: new InputField({
-                blur: (e: HTMLElementEventInputOrTextArea) => {
+                blur: (e: THTMLElementEventInputOrTextArea) => {
                     if (blur) {
                         blur(e)
                     }
                 },
-                focus: (e: HTMLElementEventInputOrTextArea) => {
+                focus: (e: THTMLElementEventInputOrTextArea) => {
                     const {value} = getValueAndNameTarget(e);
                     if (pattern) {
                         this.validateInput(value);
@@ -79,7 +79,7 @@ export default class Input extends Block {
                     }
 
                 },
-                keyup: (e: HTMLElementEventInputOrTextArea) => {
+                keyup: (e: THTMLElementEventInputOrTextArea) => {
                     const {value} = getValueAndNameTarget(e);
                     if (pattern) {
                         this.validateInput(value);

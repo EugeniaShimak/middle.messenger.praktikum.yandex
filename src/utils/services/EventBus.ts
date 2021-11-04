@@ -1,21 +1,21 @@
-type callback = (...args: any[]) => void;
+type TCallback = (...args: any[]) => void;
 
 class EventBus {
 
-    listeners: { [event: string]: callback[] } = {};
+    listeners: { [event: string]: TCallback[] } = {};
 
     constructor() {
         this.listeners = {};
     }
 
-    on(event: string, callback: (...args: any[]) => void) {
+    on(event: string, callback: TCallback) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
         this.listeners[event].push(callback);
     }
 
-    off(event: string, callback: callback) {
+    off(event: string, callback: TCallback) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

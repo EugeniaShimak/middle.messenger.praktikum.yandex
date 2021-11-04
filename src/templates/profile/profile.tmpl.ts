@@ -1,8 +1,8 @@
-import "../common/partials/wrapper_center_layout.tmpl";
-import {headerTmpl} from "../common/partials/header_layout.tmpl";
+import '../common/partials/wrapper_center_layout.tmpl';
+import {headerTmpl} from '../common/partials/header_layout.tmpl';
 
 const defaultAvatar =  new URL(
-    "../../../static/img/avatar.png",
+    '../../../static/img/avatar.png',
     import.meta.url
 );
 

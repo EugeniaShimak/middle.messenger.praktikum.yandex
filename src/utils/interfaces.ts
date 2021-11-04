@@ -1,8 +1,8 @@
-type HTMLElementEvent<T extends HTMLElement> = Event & {
+type THTMLElementEvent<T extends HTMLElement> = Event & {
     target: T;
     currentTarget: T;
 }
 
-export type HTMLElementEventInputOrTextArea = HTMLElementEvent<HTMLInputElement|HTMLTextAreaElement>;
+export type THTMLElementEventInputOrTextArea = THTMLElementEvent<HTMLInputElement|HTMLTextAreaElement>;
 
-export type objectStrings = { [key: string]: string };
+export type TObjectStrings = { [key: string]: string };

@@ -1,6 +1,6 @@
-import Block from "../../../../utils/services/Block";
-import {buttonTmpl} from "./button.tmpl";
-import {compileHandlebars} from "../../../../utils/functions/manipulateDOM";
+import Block from '../../../../utils/services/Block';
+import {buttonTmpl} from './button.tmpl';
+import {compileHandlebars} from '../../../../utils/functions/manipulateDOM';
 
 interface IButton {
     classesButton?: string[],
@@ -12,7 +12,7 @@ interface IButton {
 export default class Button extends Block {
     constructor(props: IButton) {
         const {classesButton = []} = props;
-        super("div", {
+        super('div', {
             ...props,
             classesButton: classesButton.join(' '),
             settings: {withInternalID: true, eventsToChild: true}

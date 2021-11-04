@@ -1,5 +1,5 @@
-import Input from "./components/input";
-import {PATTERNS} from "../../utils/consts";
+import Input from './components/input';
+import {PATTERNS} from '../../utils/consts';
 
 const nameValidator = {
     pattern: PATTERNS.firstLastName,

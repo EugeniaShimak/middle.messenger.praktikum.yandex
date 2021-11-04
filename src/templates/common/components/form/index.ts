@@ -1,17 +1,17 @@
-import Block from "../../../../utils/services/Block";
+import Block from '../../../../utils/services/Block';
 import {
     compileHandlebars,
     getContentFromComponentProps,
     getValuesByForm
-} from "../../../../utils/functions/manipulateDOM";
-import {objectStrings} from "../../../../utils/interfaces";
-import Input from "../input";
-import Button from "../button";
+} from '../../../../utils/functions/manipulateDOM';
+import {TObjectStrings} from '../../../../utils/interfaces';
+import Input from '../input';
+import Button from '../button';
 
 interface IForm {
     classes?: string[],
-    attributes?: objectStrings,
-    submit: (e: Event, values: objectStrings) => void,
+    attributes?: TObjectStrings,
+    submit: (e: Event, values: TObjectStrings) => void,
     formTmpl: string,
     button?: Button,
     [others: string]: any;
@@ -22,7 +22,7 @@ export default class Form extends Block {
         const {
             classes = [], attributes = {}, submit
         } = props;
-        super("form", {
+        super('form', {
             ...props,
             classes: [...classes],
             attributes: {method: 'post', ...attributes},

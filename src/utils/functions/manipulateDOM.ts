@@ -1,6 +1,6 @@
-import Handlebars from "handlebars";
-import Block from "../services/Block";
-import {HTMLElementEventInputOrTextArea, objectStrings} from "../interfaces";
+import Handlebars from 'handlebars';
+import Block from '../services/Block';
+import {THTMLElementEventInputOrTextArea, TObjectStrings} from '../interfaces';
 
 export const renderDOM = (query: string, block: Block) => {
     const root = document.querySelector(query);
@@ -15,7 +15,7 @@ export const compileHandlebars = (tmpl: string, props: object) => {
     return Handlebars.compile(tmpl)(props);
 }
 
-export const getValueAndNameTarget = (event: HTMLElementEventInputOrTextArea) => {
+export const getValueAndNameTarget = (event: THTMLElementEventInputOrTextArea) => {
     return {
         value: event.target.value,
         name: event.target.name
@@ -33,7 +33,7 @@ export const getContentFromComponentProps = (props: any) => {
 }
 
 export const getValuesByForm = (form: HTMLFormElement | null) => {
-    const obj: objectStrings = {};
+    const obj: TObjectStrings = {};
     if (form) {
         const elements = form.elements;
         for (let i = 0; i < elements.length; i++) {

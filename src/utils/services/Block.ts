@@ -1,12 +1,12 @@
-import EventBus from "./EventBus";
+import EventBus from './EventBus';
 import {v4 as uuidv4} from 'uuid';
 
 class Block {
     static EVENTS = {
-        INIT: "init",
-        FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDU: "flow:component-did-update",
-        FLOW_RENDER: "flow:render"
+        INIT: 'init',
+        FLOW_CDM: 'flow:component-did-mount',
+        FLOW_CDU: 'flow:component-did-update',
+        FLOW_RENDER: 'flow:render'
     };
 
     _element: Element | HTMLElement| HTMLFormElement| null = null;
@@ -20,7 +20,7 @@ class Block {
     eventBus: any;
     _id: string;
 
-    constructor(tagName = "div", props: any) {
+    constructor(tagName = 'div', props: any) {
         const eventBus = new EventBus();
         this._meta = {
             tagName,
@@ -210,7 +210,7 @@ class Block {
                 return true;
             },
             deleteProperty: () => {
-                throw new Error("Нет доступа");
+                throw new Error('Нет доступа');
             },
         });
     }
@@ -225,16 +225,12 @@ class Block {
 
     show() {
         const content = this.getContent();
-        if (content && 'style' in content) {
-            content.style.display = "block";
-        }
+        content?.classList.remove('hidden');
     }
 
     hide() {
         const content = this.getContent();
-        if (content && 'style' in content) {
-            content.style.display = "none";
-        }
+        content?.classList.add('hidden');
     }
 }
 

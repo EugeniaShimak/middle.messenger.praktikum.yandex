@@ -1,7 +1,7 @@
-import {errorTmpl} from "./error.tmpl";
-import Block from "../../utils/services/Block";
-import {compileHandlebars} from "../../utils/functions/manipulateDOM";
-import { buttonReturnToChats } from "./components/buttonReturnToChats";
+import {errorTmpl} from './error.tmpl';
+import Block from '../../utils/services/Block';
+import {compileHandlebars} from '../../utils/functions/manipulateDOM';
+import {buttonReturnToChats} from './components/buttonReturnToChats';
 
 interface IError {
     codeError: string,
@@ -11,7 +11,7 @@ interface IError {
 
 export default class ErrorPage extends Block {
     constructor(props: IError) {
-        super("div", {
+        super('div', {
             ...props,
             classes: ['container_page'],
             button: buttonReturnToChats

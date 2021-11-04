@@ -1,4 +1,4 @@
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 const header = `<header class="header_wrapper">
         <div class="header_actions">

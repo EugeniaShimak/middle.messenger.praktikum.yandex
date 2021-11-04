@@ -1,6 +1,6 @@
 import '../../../static/sass/custom.scss'
-import AuthPage from "../../templates/auth";
-import {renderDOM} from "../../utils/functions/manipulateDOM";
+import AuthPage from '../../templates/auth';
+import {renderDOM} from '../../utils/functions/manipulateDOM';
 
 const Registration = new AuthPage({
     title: 'Регистрация',
@@ -9,4 +9,4 @@ const Registration = new AuthPage({
     register: true
 });
 
-renderDOM("#page", Registration);
+renderDOM('#page', Registration);

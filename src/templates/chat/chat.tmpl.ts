@@ -1,23 +1,23 @@
-import "../common/partials/wrapper_center_layout.tmpl";
-import "../common/partials/list_helper.ts";
-import {headerTmpl} from "../common/partials/header_layout.tmpl";
+import '../common/partials/wrapper_center_layout.tmpl';
+import '../common/partials/list_helper.ts';
+import {headerTmpl} from '../common/partials/header_layout.tmpl';
 
 const defaultAvatar = new URL(
-    "../../../static/img/avatar.png",
+    '../../../static/img/avatar.png',
     import.meta.url
 );
 
 export const iconsUrl = {
     plane: new URL(
-        "../../../static/icons/plane.svg",
+        '../../../static/icons/plane.svg',
         import.meta.url
     ),
     attach: new URL(
-        "../../../static/icons/attach.svg",
+        '../../../static/icons/attach.svg',
         import.meta.url
     ),
     threePoints: new URL(
-        "../../../static/icons/threePoints.svg",
+        '../../../static/icons/threePoints.svg',
         import.meta.url
     ),
 }
