@@ -6,15 +6,17 @@ interface IButton {
     classesButton?: string[],
     type?: string,
     label?: string | HTMLElement,
-    events?: object
+    events?: object,
+    defaultView?: boolean
 }
 
 export default class Button extends Block {
     constructor(props: IButton) {
-        const {classesButton = []} = props;
+        const {classesButton = [], defaultView = true} = props;
         super('div', {
             ...props,
             classesButton: classesButton.join(' '),
+            defaultView,
             settings: {withInternalID: true, eventsToChild: true}
         });
     }

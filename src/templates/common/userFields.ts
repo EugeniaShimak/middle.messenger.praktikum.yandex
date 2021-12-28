@@ -13,13 +13,18 @@ const passwordValidator = {
 
 export const firstNameField = new Input({
     ...nameValidator,
-    name: 'firstName',
+    name: 'first_name',
     label: 'Имя'
+});
+
+export const displayNameField = new Input({
+    name: 'display_name',
+    label: 'Отображаемое имя'
 });
 
 export const secondNameField = new Input({
     ...nameValidator,
-    name: 'secondName',
+    name: 'second_name',
     label: 'Фамилия'
 });
 
@@ -61,6 +66,6 @@ export const passwordCloneField = new Input({
 export const passwordOldField = new Input({
     ...passwordValidator,
     type: 'password',
-    name: 'passwordOld',
+    name: 'oldPassword',
     label: 'Старый пароль'
 });

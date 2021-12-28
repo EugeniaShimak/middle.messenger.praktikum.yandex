@@ -3,12 +3,12 @@ import '../common/partials/wrapper_center_layout.tmpl';
 export const authTmpl = `{{#> wrapperCenter}}
                         {{{title}}}
                         {{{form}}}
-                        <a href='#' class="link">{{linkLabel}}</a>
+                        <a href='{{#if register}}/{{else}}/sign-up{{/if}}' class="link">{{linkLabel}}</a>
                     {{/ wrapperCenter}}`;
 
 export const formAuth = `{{#if register}}
-                               {{{firstName}}}
-                               {{{secondName}}}
+                               {{{first_name}}}
+                               {{{second_name}}}
                                {{{login}}}
                                {{{email}}}
                                {{{phone}}}

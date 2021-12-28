@@ -1,4 +1,6 @@
 import {TObjectStrings} from '../interfaces';
+import {host} from '../consts';
+import {AuthController} from '../../controllers/Auth.controller';
 
 const METHODS = {
     GET: 'GET',
@@ -11,8 +13,8 @@ const TIMEOUT = 5000;
 
 type TData = any;
 
-type TOptions = {
-    method: string, data?: TData, headers?: TObjectStrings, retries?: number, timeout?: number
+interface IOptions {
+    method?: string, data?: TData, headers?: TObjectStrings, retries?: number, timeout?: number, [others: string]: any
 }
 
 function queryStringify(data: TData) {
@@ -26,39 +28,53 @@ function queryStringify(data: TData) {
 }
 
 class HTTPTransport {
-    get = (url: string, options: TOptions) => {
-        return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+    _endpoint = host;
+
+    constructor(endpoint: string) {
+        this._endpoint = `${host}${endpoint}`;
+    }
+
+    get = (url: string, options: IOptions | undefined = {}) => {
+        return this.request(`${this._endpoint}${url}`, {...options, method: METHODS.GET}, options?.timeout);
     };
 
-    post = (url: string, options: TOptions) => {
-        return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+    post = (url: string, options: IOptions | undefined = {}) => {
+        return this.request(`${this._endpoint}${url}`, {...options, method: METHODS.POST}, options?.timeout);
     };
 
-    put = (url: string, options: TOptions) => {
-        return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+    put = (url: string, options: IOptions | undefined = {}) => {
+        return this.request(`${this._endpoint}${url}`, {...options, method: METHODS.PUT}, options?.timeout);
     };
 
-    delete = (url: string, options: TOptions) => {
-        return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+    delete = (url: string, options: IOptions | undefined = {}) => {
+        return this.request(`${this._endpoint}${url}`, {...options, method: METHODS.DELETE}, options?.timeout);
     };
 
-    request = (url: string, options: TOptions, timeout: number = TIMEOUT) => {
-        const {method, data = {}, headers = {}} = options;
+    request = (url: string, options: IOptions, timeout: number = TIMEOUT) => {
+        const {method = '', data = {}, headers = {}, file = false, parse = false} = options;
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, method === METHODS.GET || !data
-                ? `${url}${queryStringify(data)}`
-                : url);
+                ? `https://${url}${queryStringify(data)}`
+                : `https://${url}`);
 
             Object.keys(headers).forEach(key => {
                 xhr.setRequestHeader(key, headers[key]);
-                xhr.setRequestHeader('Content-Type', 'application/json');
             });
+            if (!file) {
+                xhr.setRequestHeader('content-type', 'application/json');
+            }
+            xhr.withCredentials = true;
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status <= 299) {
-                    resolve(xhr);
+                    resolve(parse ? JSON.parse(xhr.response): xhr);
                 } else {
+                    if (xhr.status === 401) {
+                        const authController = new AuthController();
+                        authController.clearDataAndGoToLogin();
+                        resolve(xhr);
+                    }
                     reject(xhr);
                 }
             };
@@ -77,7 +93,7 @@ class HTTPTransport {
     };
 }
 
-function fetchWithRetry(url: string, options: TOptions) {
+function fetchWithRetry(url: string, options: IOptions) {
     const {retries = 1} = options;
 
     function onError(err: object): object {
@@ -89,7 +105,8 @@ function fetchWithRetry(url: string, options: TOptions) {
         return fetchWithRetry(url, {...options, retries: triesLeft});
     }
 
-    const req = (url: string, options: TOptions): Promise<any> => {
+    const req = (url: string, options: IOptions): Promise<any> => {
+        // @ts-ignore
         const http = new HTTPTransport();
         switch (options.method) {
             case METHODS.GET:

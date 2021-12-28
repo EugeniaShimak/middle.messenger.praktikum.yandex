@@ -74,14 +74,14 @@ class Block {
         return;
     }
 
-    _componentDidUpdate(oldProps: object, newProps: object) {
-        const response = this.componentDidUpdate(oldProps, newProps);
+    async _componentDidUpdate(oldProps: object, newProps: object) {
+        const response = await this.componentDidUpdate(oldProps, newProps);
         if (response) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    componentDidUpdate(_oldProps: object, _newProps: object) {
+    async componentDidUpdate(_oldProps: any, _newProps: any) {
         return true;
     }
 
@@ -175,14 +175,23 @@ class Block {
     }
 
     _getChildElements() {
-        const childElements = [];
+        const childElements: object[] = [];
+
+        const addBlockToChildElements = (block: Block, elements: object[] = []) => {
+            const idElement = block.getId();
+            elements.push({
+                id: idElement,
+                node: block.getContent(),
+            })
+        }
         for (const propsKey in this.props) {
-            if (this.props[propsKey] instanceof Block) {
-                const idElement = this.props[propsKey].getId();
-                childElements.push({
-                    id: idElement,
-                    node: this.props[propsKey].getContent(),
+            if (Array.isArray(this.props[propsKey]) && this.props[propsKey][0] instanceof Block) {
+                this.props[propsKey].forEach((item: Block) => {
+                    addBlockToChildElements(item, childElements);
                 })
+            }
+            if (this.props[propsKey] instanceof Block) {
+                addBlockToChildElements(this.props[propsKey], childElements);
             }
         }
         return childElements;
@@ -204,8 +213,9 @@ class Block {
             },
             set: (target: any, prop: string, val) => {
                 if (target[prop] !== val) {
+                    const oldProps = {...target};
                     target[prop] = val;
-                    this.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+                    this.eventBus().emit(Block.EVENTS.FLOW_CDU, {...oldProps}, target);
                 }
                 return true;
             },

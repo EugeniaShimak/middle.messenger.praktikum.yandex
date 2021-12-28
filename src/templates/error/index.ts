@@ -14,7 +14,8 @@ export default class ErrorPage extends Block {
         super('div', {
             ...props,
             classes: ['container_page'],
-            button: buttonReturnToChats
+            button: buttonReturnToChats,
+            settings: {withInternalID: true}
         });
     }
 

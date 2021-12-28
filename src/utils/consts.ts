@@ -6,3 +6,15 @@ export const PATTERNS = {
     phone: /^\+*[0-9]{10,15}$/,
     message: /^(?=\s*\S).*$/gm,
 }
+
+export const host = 'ya-praktikum.tech/api/v2/';
+export const RESOURCES_URL = 'https://ya-praktikum.tech/api/v2/resources';
+
+export const routes = {
+    login: '/',
+    messenger: '/messenger',
+    err505: '/505',
+    err404: '/404',
+    signup: '/sign-up',
+    settings: '/settings',
+}

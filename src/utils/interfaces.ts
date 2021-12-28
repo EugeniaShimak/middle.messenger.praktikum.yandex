@@ -6,3 +6,7 @@ type THTMLElementEvent<T extends HTMLElement> = Event & {
 export type THTMLElementEventInputOrTextArea = THTMLElementEvent<HTMLInputElement|HTMLTextAreaElement>;
 
 export type TObjectStrings = { [key: string]: string };
+
+export type TIndexed<T = any> = {
+    [key in string]: T;
+};

@@ -1,6 +1,5 @@
 import '../common/partials/wrapper_center_layout.tmpl';
 import '../common/partials/list_helper.ts';
-import {headerTmpl} from '../common/partials/header_layout.tmpl';
 
 const defaultAvatar = new URL(
     '../../../static/img/avatar.png',
@@ -20,61 +19,70 @@ export const iconsUrl = {
         '../../../static/icons/threePoints.svg',
         import.meta.url
     ),
+    addBtn: new URL(
+        '../../../static/icons/addBtn.svg',
+        import.meta.url
+    ),
+    deleteBtn: new URL(
+        '../../../static/icons/deleteBtn.svg',
+        import.meta.url
+    ),
 }
 
-export const chatTmpl = `${headerTmpl({withActions: true})}
+export const chatTmpl = `{{{header}}}
 <main class="chat_container">
     <section class="chat_feed">
-        {{#if currentDialogId}}
             {{#list chatPreviews}}{{/list}}
-        {{/if}}
     </section>
-        {{#if currentDialogId}}
-            <section class="chat_dialog">
-            <div class="chat_dialog_context_menu">
-                <div class="button_dialog_context_menu">
-                    <img src=${iconsUrl.threePoints} alt="context_menu">
-                    <button></button>
-                </div>
-            </div>
-    
-            <div class="chat_dialog_messages_container">
-            <!-- в массиве-->
-            {{#list days}}{{/list}}
-            </div>
-    
-            <div class="chat_dialog_message_editor">
-                {{{messageForm}}}
-            </div>
-        </section>
+        {{#if dialogIsChosen}}
+           {{{chatDialog}}}
         {{else}}
             <section class="chat">
                 <p class="chat_stub">Выберите чат.</p>
             </section>
         {{/if}}
+       {{{settingsChatDialog}}}
 </main>`;
 
+export const chatDialog = `
+            <div class="chat_dialog_context_menu">
+                <div class="button_dialog_context_menu">
+                    <img src=${iconsUrl.threePoints} alt="context_menu">
+                    {{{buttonMenuChat}}}
+                    <div class="dropdown">
+                          <div id="dropdown_settings_chat" class="dropdown_content">
+                              {{{buttonSettingsChat}}}
+                          </div>
+                     </div>         
+                </div>
+            </div>
+    
+            <div class="chat_dialog_messages_container">
+            {{#list messages}}{{/list}}
+            </div>
+    
+            <div class="chat_dialog_message_editor">
+                {{{messageForm}}}
+            </div>
+       `
+
 export const chatPreviewTmpl = `<div class="chat_preview_text">
-                    <div class="chat_preview_title">{{userName}}</div>
+                    <div class="chat_preview_title">{{title}}</div>
                     <p class="chat_preview_message">
-                        {{message}}
+                        {{content}}
                     </p>
                 </div>
                 <div class="chat_preview_info">
-                    <div class="chat_preview_count {{#if countUnread}}{{else}}invisible{{/if}}">{{countUnread}}</div>
+                    <div class="chat_preview_count {{#if unread_count}}{{else}}invisible{{/if}}">{{unread_count}}</div>
                     <time class="chat_preview_time">{{timeLastMessage}}</time>
                     <div class="avatar chat_preview_avatar">
-                        <img src="{{#if userAvatar}}{{userAvatar}}{{else}}${defaultAvatar}{{/if}}" alt="avatar">
+                        <img src="{{#if avatar}}{{avatar}}{{else}}${defaultAvatar}{{/if}}" alt="avatar" crossorigin="use-credentials">
                     </div>
                 </div>`;
 
-
-export const dayContainerTmpl = `<time class="dialog_date">{{dialogDate}}</time>
-                        {{#list messages}}{{/list}}`;
-
 export const messageTmpl = `<div class="dialog_message_item">
                             <div class="avatar dialog_message_user_avatar">
-                                <img src="{{#if userAvatar}}{{userAvatar}}{{else}}${defaultAvatar}{{/if}}" alt="avatar">
+                                <img src="{{#if userAvatar}}{{userAvatar}}{{else}}${defaultAvatar}{{/if}}" alt="avatar" crossorigin="use-credentials">
                             </div>
                         </div>
                         <div class="dialog_message_item">

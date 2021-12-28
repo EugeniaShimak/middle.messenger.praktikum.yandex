@@ -5,8 +5,9 @@ import {
     getValuesByForm
 } from '../../../../utils/functions/manipulateDOM';
 import {TObjectStrings} from '../../../../utils/interfaces';
-import Input from '../input';
 import Button from '../button';
+import {escapeSymbolsValues} from '../../../../utils/functions/escapeSymbols';
+import Input from '../input';
 
 interface IForm {
     classes?: string[],
@@ -43,9 +44,9 @@ export default class Form extends Block {
                             }
                         }
                     }
-                    console.log(values);
-                    if (!formInvalid){
-                        submit(e, values);
+                    if (!formInvalid) {
+                        const data = escapeSymbolsValues(values);
+                        submit(e, data);
                     }
                 }
             }
