@@ -54,6 +54,12 @@ export class ChatsController extends Controller {
         if (idChat) {
             return ChatAPI.getUsersOfChat(idChat)
                 .then((res) => {
+                    this.store.setState({
+                        chatData: {
+                            ...this.store.state.chatData,
+                            users: res as IUserInfo[],
+                        }
+                    });
                     return res;
                 })
                 .catch(errorHandler)

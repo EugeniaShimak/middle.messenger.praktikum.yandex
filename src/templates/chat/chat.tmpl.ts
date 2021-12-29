@@ -52,6 +52,7 @@ export const chatDialog = `
                     <div class="dropdown">
                           <div id="dropdown_settings_chat" class="dropdown_content">
                               {{{buttonSettingsChat}}}
+                              {{{buttonDeleteChat}}}
                           </div>
                      </div>         
                 </div>
@@ -107,6 +108,7 @@ export const messageTmpl = `<div class="dialog_message_item">
                     `
 
 export const messageFormTmpl = `
+                    {{#if usersMoreThanOne}}
                     {{{message}}}
                     <div class="message_buttons">
                         <button type="button" class="message_buttons_attach_file">
@@ -114,4 +116,7 @@ export const messageFormTmpl = `
                         </button>
                         {{{buttonSubmit}}}
                     </div>
+                    {{else}}
+                    <span class="empty_chat">Чтобы начать общение, добавьте пользователя в чат</span>
+                    {{/if}}
                 `;

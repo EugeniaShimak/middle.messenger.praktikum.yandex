@@ -203,9 +203,20 @@ export default class ChatPage extends Block {
                         },
                     },
                 }),
+                buttonDeleteChat: new Button({
+                    classesButton: ['dropdown_item'],
+                    defaultView: false,
+                    label: 'Удалить чат',
+                    events: {
+                        click: () => {
+                            console.log('Функционал не реализован')
+                        },
+                    },
+                }),
                 messages: getMessageBlock([]),
                 messageForm: new Form({
                     formTmpl: messageFormTmpl,
+                    usersMoreThanOne: false,
                     classes: ['form_message'],
                     submit: (_e: Event, values: TObjectStrings) => {
                         this.setInputMessageValue(values.message);
@@ -264,13 +275,16 @@ export default class ChatPage extends Block {
     }
 
     updateSettingsChatDialog() {
-        const {chatData: {id}} = this.store.state;
+        const {chatData: {id, users}} = this.store.state;
         const {settingsChatDialog} = this.props;
         if (settingsChatDialog.props.contentDialog.idChat !== id) {
             settingsChatDialog.props.contentDialog.setProps({
                 idChat: id
             })
         }
+        this.props.chatDialog.props.messageForm.setProps({
+            usersMoreThanOne: users && users?.length > 1
+        })
     }
 
     updateMessages() {
