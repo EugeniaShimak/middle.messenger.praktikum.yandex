@@ -92,10 +92,6 @@ video {
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f4f4ff94;
-}
-
 div {
   box-sizing: border-box;
 }
@@ -139,6 +135,7 @@ body {
   box-sizing: border-box;
   overflow: hidden;
   height: 100vh;
+  background-color: #f4f4ff94;
 }
 
 .container_center {
@@ -447,7 +444,7 @@ input:-webkit-autofill:active {
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  background: radial-gradient(circle, rgba(49,213,255,0.616982) 65%, rgba(70,80,252,0.3) 100%);
+  background: radial-gradient(circle, rgb(49 213 255 / 61.7%) 65%, rgb(70 80 252 / 30%) 100%);
   padding: 15px 30px;
   height: 125px;
   box-shadow: 0 2px 16px 0 rgb(0 0 0 / 25%);
