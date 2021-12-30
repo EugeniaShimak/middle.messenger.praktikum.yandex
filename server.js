@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 // eslint-disable-next-line no-undef
 app.use(express.static(__dirname + '/dist'));
 
-app.all('*', function (req, res, next) {
+app.get('*', function (req, res, next) {
     // eslint-disable-next-line no-undef
     res.sendFile(path.join(__dirname, '/dist/index.html'))
 });
