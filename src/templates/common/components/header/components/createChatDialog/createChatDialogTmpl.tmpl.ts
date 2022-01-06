@@ -3,5 +3,3 @@ export const createChatDialogTmpl = `
 {{{formCreateChat}}}`;
 
 export const formCreateChatTmpl = `{{{title}}}{{{buttonSubmit}}}`;
-
-

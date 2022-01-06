@@ -11,4 +11,3 @@ export const userTmpl = `
 `;
 
 export const formAddUserTmpl = `{{{inputUser}}}{{{buttonAddUser}}}`
-

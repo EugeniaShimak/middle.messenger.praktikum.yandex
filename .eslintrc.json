@@ -17,6 +17,7 @@
     ],
     "rules": {
         "object-curly-spacing": ["error", "never"],
+        "eol-last": ["error", "always"],
         "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true  }],
         "@typescript-eslint/ban-ts-comment": "off",
         "no-useless-escape": "off"

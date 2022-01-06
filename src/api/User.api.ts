@@ -6,23 +6,23 @@ const userAPI = new fetchCustom('user');
 
 export class UserAPI {
 
-    static async changeUserProfile(userInfo: IUserInfo) {
+    static changeUserProfile(userInfo: IUserInfo) {
         return userAPI.put('/profile', {parse: true, data: JSON.stringify(userInfo)});
     }
 
-    static async changeUserAvatar(form: any) {
+    static changeUserAvatar(form: any) {
         return userAPI.put('/profile/avatar', {file: true, parse: true, data: form});
     }
 
-    static async changeUserPassword(data: any) {
+    static changeUserPassword(data: any) {
         return userAPI.put('/password', {data: JSON.stringify(data)});
     }
 
-    static async getUserById(id: string) {
+    static getUserById(id: string) {
         return userAPI.get('/', {parse: true, data: {id}});
     }
 
-    static async getUserByLogin(login: string) {
+    static getUserByLogin(login: string) {
         return userAPI.post('/search', {parse: true, data: JSON.stringify({login})});
     }
 }

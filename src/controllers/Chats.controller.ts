@@ -31,15 +31,15 @@ export class ChatsController extends Controller {
         this.sockets = {};
     }
 
-    public async createChat(title: string) {
+    public createChat(title: string) {
         ChatAPI.create(title)
-            .then(() => {
-                this.getAllChats();
+            .then(async () => {
+                await this.getAllChats();
             })
             .catch(errorHandler)
     }
 
-    public async getAllChats() {
+    public getAllChats() {
         return ChatAPI.getAll()
             .then((chats: IChat[]) => {
                 this.store.setState({
@@ -50,31 +50,23 @@ export class ChatsController extends Controller {
             .catch(errorHandler)
     }
 
-    public async getUsersOfChat(idChat?: TIdChat): Promise<any> {
+    public getUsersOfChat(idChat?: TIdChat): Promise<any> {
         if (idChat) {
             return ChatAPI.getUsersOfChat(idChat)
-                .then((res) => {
+                .then((users: IUserInfo[]) => {
                     this.store.setState({
                         chatData: {
                             ...this.store.state.chatData,
-                            users: res as IUserInfo[],
+                            users,
                         }
                     });
-                    return res;
+                    return users;
                 })
                 .catch(errorHandler)
         } else return Promise.resolve([]);
     }
 
-    public async addUsersToChat(data: IChatUsers): Promise<any> {
-        return ChatAPI.addUsersToChat(data)
-            .then((res) => {
-                return res;
-            })
-            .catch(errorHandler)
-    }
-
-    public async deleteUsersFromChat(data: IChatUsers): Promise<any> {
+    public deleteUsersFromChat(data: IChatUsers): Promise<any> {
         return ChatAPI.deleteUsersFromChat(data)
             .then((res) => {
                 return res;
@@ -141,7 +133,7 @@ export class ChatsController extends Controller {
                     }));
                 }, 5000);
 
-                socket.addEventListener('message', async (e) => {
+                socket.addEventListener('message',(e) => {
                     const msg = JSON.parse(e.data);
                     this.handleReceiveMessages(msg);
                     return;
@@ -189,7 +181,7 @@ export class ChatsController extends Controller {
         }
     }
 
-    public async sendMessage(message: string, idChat: string | number) {
+    public sendMessage(message: string, idChat: string | number) {
         if (this.sockets[idChat]) {
             this.sockets[idChat].send(JSON.stringify({
                 content: message,

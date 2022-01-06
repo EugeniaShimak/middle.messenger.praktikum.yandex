@@ -5,19 +5,19 @@ const authAPI = new fetchCustom('auth');
 
 export class AuthorizationAPI {
 
-    static async signUp(signUpData: ISignUpData) {
+    static signUp(signUpData: ISignUpData) {
         return authAPI.post('/signup', {data: JSON.stringify(signUpData)});
     }
 
-    static async signIn(signInData: ISignInData) {
+    static signIn(signInData: ISignInData) {
         return authAPI.post('/signin', {data: JSON.stringify(signInData)});
     }
 
-    static async getUser() {
+    static getUser() {
         return authAPI.get('/user', {parse: true});
     }
 
-    static async logOut() {
+    static logOut() {
         return authAPI.post('/logout', {data: JSON.stringify({})});
     }
 }

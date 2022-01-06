@@ -5,4 +5,3 @@ const wrapperCenter = `<div class="container_center">
     </div>`;
 
 export default Handlebars.registerPartial('wrapperCenter', wrapperCenter);
-

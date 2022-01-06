@@ -96,7 +96,7 @@ export default class SettingsChatDialog extends Block {
         this.store = store;
     }
 
-    async componentDidUpdate(oldProps: any, newProps: any) {
+    componentDidUpdate(oldProps: any, newProps: any) {
         const {idChat: idChatOld, users: usersOld} = oldProps;
         const {idChat, users} = newProps;
         if (idChat && idChat !== idChatOld || users.length !== usersOld.length) {
@@ -104,7 +104,7 @@ export default class SettingsChatDialog extends Block {
                 return true
             })
         }
-        return false
+        return Promise.resolve(false)
     }
 
     getUsersOfChat(idChat?: TIdChat) {

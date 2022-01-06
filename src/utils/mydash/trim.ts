@@ -6,4 +6,3 @@ export function trim(string: string, chars?: string): string {
     const reg = new RegExp(`[${chars}]`, 'gi');
     return string.replace(reg, '');
 }
-

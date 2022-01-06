@@ -6,4 +6,3 @@ export const error505DefaultProps = {
         import.meta.url
     )
 };
-

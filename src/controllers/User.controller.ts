@@ -16,7 +16,6 @@ export interface IUserInfo {
     id?: string | number,
 }
 
-
 export class UserController extends Controller {
 
     static __instance: UserController | null;
@@ -28,7 +27,7 @@ export class UserController extends Controller {
         super();
     }
 
-    public async changeUserInfo(data: IUserInfo) {
+    public changeUserInfo(data: IUserInfo) {
         const {oldPassword, password, passwordClone, ...rest} = data;
         const needUpdatePassword = oldPassword && password;
         if (needUpdatePassword && passwordClone !== password) {
@@ -82,19 +81,18 @@ export class UserController extends Controller {
 
     }
 
-    public async changeUserProfile({first_name, second_name, display_name, login, email, phone}: IUserInfo) {
-        const userInfo = {
-            first_name, second_name, display_name, login, email, phone
-        };
+    public changeUserProfile(userInfo: IUserInfo) {
+        // const userInfo = {
+        //     first_name, second_name, display_name, login, email, phone
+        // };
         return UserAPI.changeUserProfile(userInfo);
     }
 
-    public async changeUserPassword({oldPassword, password}: IUserInfo) {
-        const passwordData = {oldPassword, newPassword: password};
-        return UserAPI.changeUserPassword(passwordData);
+    public changeUserPassword({oldPassword, password}: IUserInfo) {
+        return UserAPI.changeUserPassword({oldPassword, newPassword: password});
     }
 
-    public async changeUserAvatar(file: File) {
+    public changeUserAvatar(file: File) {
         const form = new FormData();
         form.append('avatar', file);
         UserAPI.changeUserAvatar(form)
@@ -104,15 +102,7 @@ export class UserController extends Controller {
             .catch(errorHandler)
     }
 
-    public async getUserById(id: string) {
-        UserAPI.getUserById(id)
-            .then((user: IUserInfo[]) => {
-                return user;
-            })
-            .catch(errorHandler)
-    }
-
-    public async getUserByLogin(login: string) {
+    public getUserByLogin(login: string) {
         return UserAPI.getUserByLogin(login)
             .then((user: IUserInfo[]) => {
                 return user;

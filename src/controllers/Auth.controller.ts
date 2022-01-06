@@ -32,7 +32,7 @@ export class AuthController extends Controller {
         super();
     }
 
-    public async signUp(data: ISignUpData) {
+    public signUp(data: ISignUpData) {
         AuthorizationAPI.signUp(data)
             .then(async (res) => {
                 console.log(res);
@@ -43,7 +43,7 @@ export class AuthController extends Controller {
             .catch(errorHandler)
     }
 
-    public async signIn(data: ISignInData) {
+    public signIn(data: ISignInData) {
         AuthorizationAPI.signIn(data)
             .then(async (res) => {
                 console.log(res);
@@ -55,7 +55,7 @@ export class AuthController extends Controller {
     }
 
 
-    public async getUser() {
+    public getUser() {
         return AuthorizationAPI.getUser()
             .then((user: IUserInfo) => {
                 this.store.setState({user});
@@ -64,7 +64,7 @@ export class AuthController extends Controller {
             .catch(errorHandler)
     }
 
-    public async logOut() {
+    public logOut() {
         AuthorizationAPI.logOut()
             .then(() => {
                 this.clearDataAndGoToLogin();
