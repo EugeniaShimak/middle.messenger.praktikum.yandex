@@ -16,6 +16,7 @@ import {ChatController, ChatsController, TIdChat} from '../../controllers/Chats.
 import {Store, store, StoreEvents} from '../../utils/store/Store';
 import {AuthController} from '../../controllers/Auth.controller';
 import {IUserInfo} from '../../controllers/User.controller';
+import {Socket, SocketController} from '../../controllers/Socket.controller';
 
 export interface IChat {
     avatar: null | string,
@@ -66,7 +67,7 @@ const getChatPreviews = (chats?: IChat[], currentChatId?: TIdChat) => {
 }
 
 class ChatPreview extends Block {
-    private chatsController: ChatsController;
+    private socketController: SocketController;
 
     constructor(props: IChat) {
         const {active, id, last_message = {}} = props;
@@ -85,12 +86,12 @@ class ChatPreview extends Block {
             settings: {withInternalID: true},
             events: {
                 click: async () => {
-                    await this.chatsController.chooseChat(id);
+                    await this.socketController.chooseChat(id);
                     scrollToBottomOfChat(true);
                 }
             }
         });
-        this.chatsController = ChatController;
+        this.socketController = Socket;
     }
 
     render() {
@@ -163,6 +164,7 @@ class MessageBlock extends Block {
 
 export default class ChatPage extends Block {
     public chatsController: ChatsController;
+    public socketController: SocketController;
     public authController: AuthController;
     public store: Store;
 
@@ -222,7 +224,7 @@ export default class ChatPage extends Block {
                         this.setInputMessageValue(values.message);
                         const {chatData: {id}} = this.store.state;
                         if (id && values.message) {
-                            this.chatsController.sendMessage(values.message, id);
+                            this.socketController.sendMessage(values.message, id);
                             this.setInputMessageValue('');
                             scrollToBottomOfChat(true);
                         }
@@ -245,6 +247,7 @@ export default class ChatPage extends Block {
         this.store = store;
         this.subscribeStore();
         this.chatsController = ChatController;
+        this.socketController = Socket;
         this.chatsController.getAllChats()
         this.authController = new AuthController();
         this.authController.getUser();

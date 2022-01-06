@@ -48,20 +48,11 @@ export class UserController extends Controller {
                 changeUserInfoPromise(),
             ])
                 .then((results) => {
-                    if (results.some(res => {
-                        // @ts-ignore
-                        const {reason} = res;
-                        if (reason) {
-                            console.error(reason);
-                            return true;
-                        }
-                        return false;
-                    })) {
+                    if (resultIsNotValid(results)) {
                         throw new Error('Ошибка обновления данных пользователя');
                     } else {
                         const user = results.reduce((acc, result) => {
-                            // @ts-ignore
-                            const {value} = result;
+                            const {value} = result as PromiseFulfilledResult<any>;
                             return {
                                 ...acc,
                                 ...value
@@ -79,12 +70,17 @@ export class UserController extends Controller {
                 .catch(errorHandler)
         }
 
+        const resultIsNotValid = (results: any[]) => results.some(res => {
+            const {reason} = res;
+            if (reason) {
+                console.error(reason);
+                return true;
+            }
+            return false;
+        });
     }
 
     public changeUserProfile(userInfo: IUserInfo) {
-        // const userInfo = {
-        //     first_name, second_name, display_name, login, email, phone
-        // };
         return UserAPI.changeUserProfile(userInfo);
     }
 

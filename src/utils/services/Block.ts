@@ -75,9 +75,14 @@ class Block {
     }
 
     async _componentDidUpdate(oldProps: object, newProps: object) {
-        const response = await this.componentDidUpdate(oldProps, newProps);
-        if (response) {
-            this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+        try {
+            const response = await this.componentDidUpdate(oldProps, newProps);
+            if (response) {
+                this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+            }
+        }
+        catch (e) {
+            console.error(e);
         }
     }
 
