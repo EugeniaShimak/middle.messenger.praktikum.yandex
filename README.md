@@ -8,7 +8,8 @@
 
 Ссылка на netify https://lucid-ardinghelli-54263f.netlify.app/
 
-Ссылка на PR 3 спринта https://github.com/EugeniaShimak/middle.messenger.praktikum.yandex/pull/3
+Ссылка на PR 4 спринта https://github.com/EugeniaShimak/middle.messenger.praktikum.yandex/pull/4
+Ссылка на хероку https://messenger-praktikum458.herokuapp.com/
 
 Все команды нужно запускать из корня проекта.
 
