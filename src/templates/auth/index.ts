@@ -17,6 +17,8 @@ import {
 } from '../common/userFields';
 import Form from '../common/components/form';
 import {TObjectStrings} from '../../utils/interfaces';
+import {AuthController} from '../../controllers/Auth.controller';
+import Input from '../common/components/input';
 
 const firstName = firstNameField
 
@@ -40,20 +42,28 @@ interface IAuthPage {
 }
 
 export default class AuthPage extends Block {
+    public authController: AuthController;
     constructor(props: IAuthPage) {
         const {title, buttonLabel, register} = props;
         const fieldsAuth = {
-            login,
-            password,
+            login: new Input({
+                name: 'login',
+                label: 'Логин'
+            }),
+            password: new Input({
+                type: 'password',
+                name: 'password',
+                label: 'Пароль'
+            }),
         };
 
         const fieldsRegister = {
-            ...fieldsAuth,
-            email,
-            firstName,
-            secondName,
-            phone,
+            login,
             password,
+            email,
+            first_name: firstName,
+            second_name: secondName,
+            phone,
             passwordClone,
         }
 
@@ -66,8 +76,13 @@ export default class AuthPage extends Block {
             form: new Form({
                 formTmpl: formAuth,
                 classes: ['form_auth'],
-                submit: (e: Event, values: TObjectStrings) => {
-                    console.log(e, values);
+                submit: (_e: Event, values: TObjectStrings) => {
+                    if (register) {
+                        this.authController.signUp(values);
+                    }
+                    else {
+                        this.authController.signIn(values);
+                    }
                 },
                 button: new Button({
                     type: 'submit',
@@ -77,6 +92,7 @@ export default class AuthPage extends Block {
                 register
             }),
         });
+        this.authController = new AuthController();
     }
 
     render() {

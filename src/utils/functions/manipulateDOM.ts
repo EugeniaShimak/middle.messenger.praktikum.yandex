@@ -2,11 +2,16 @@ import Handlebars from 'handlebars';
 import Block from '../services/Block';
 import {THTMLElementEventInputOrTextArea, TObjectStrings} from '../interfaces';
 
-export const renderDOM = (query: string, block: Block) => {
+export const renderDOM = (query: string, block: Block | null) => {
     const root = document.querySelector(query);
-    if (root) {
+    const beforePage = document.querySelector('.container_page');
+    if (root && block) {
         const content = (<Node>block?.getContent())
-        root.appendChild(content);
+        if (beforePage) {
+            beforePage.replaceWith(content);
+        } else {
+            root.appendChild(content);
+        }
     }
     return root;
 }

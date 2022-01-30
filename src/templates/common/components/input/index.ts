@@ -1,6 +1,10 @@
 import Block from '../../../../utils/services/Block';
-import {inputTmpl, textareaTmpl, wrapperInputTmpl} from './input.tmpl';
-import {compileHandlebars, getValueAndNameTarget} from '../../../../utils/functions/manipulateDOM';
+import {errorBlockTmpl, inputTmpl, inputTmplFile, textareaTmpl, wrapperInputTmpl} from './input.tmpl';
+import {
+    compileHandlebars,
+    getContentFromComponentProps,
+    getValueAndNameTarget
+} from '../../../../utils/functions/manipulateDOM';
 import {THTMLElementEventInputOrTextArea} from '../../../../utils/interfaces';
 
 interface IInputProps {
@@ -15,21 +19,30 @@ interface IInputProps {
     errorMessage?: string,
     classes?: string[],
     textarea?: boolean,
+    value?: string,
 }
 
 interface IInputFieldProps {
     name: string,
-    blur: (e: Event) => void,
-    focus: (e: Event) => void,
-    keyup: (e: Event) => void,
+    blur?: (e: Event) => void,
+    focus?: (e: Event) => void,
+    keyup?: (e: Event) => void,
+    change?: (e: Event) => void,
     type?: string,
     textarea?: boolean,
+    file?: boolean,
+    classes?: string[],
+    value?: string
 }
 
-class InputField extends Block {
+interface IErrorBlock {
+    error?: string
+}
+
+export class InputField extends Block {
     constructor(props: IInputFieldProps) {
         const {
-            blur, focus, keyup, ...rest
+            blur, focus, keyup, change, ...rest
         } = props;
         super('div', {
             ...rest,
@@ -37,26 +50,41 @@ class InputField extends Block {
                 blur,
                 focus,
                 keyup,
+                change,
             },
             settings: {withInternalID: true, eventsToChild: true},
         });
     }
 
     render() {
-        const {textarea} = this.props;
-        return compileHandlebars(textarea ? textareaTmpl : inputTmpl, this.props);
+        const {textarea, file = false} = this.props;
+        const tmpl = textarea ? textareaTmpl : file ? inputTmplFile : inputTmpl;
+        return compileHandlebars(tmpl, this.props)
+    }
+}
+
+export class ErrorBlock extends Block {
+    constructor(props: IErrorBlock) {
+        super('div', {
+            ...props,
+            settings: {withInternalID: true},
+        });
+    }
+
+    render() {
+        return compileHandlebars(errorBlockTmpl, this.props)
     }
 }
 
 export default class Input extends Block {
     constructor(props: IInputProps) {
         const {
-            blur, focus, type, name, keyup, error, pattern, errorMessage, classes = [], textarea, ...rest
+            blur, focus, type, name, keyup, error, pattern, errorMessage, classes = [], textarea, value, ...rest
         } = props;
         super('div', {
             ...rest,
             pattern,
-            classes: [...classes, 'input_wrapper', error ? 'error' : 'valid', ...(textarea ? ['textarea'] : [])],
+            classes: [...classes, 'input_wrapper', ...(textarea ? ['textarea'] : [])],
             name,
             error,
             errorMessage,
@@ -67,17 +95,9 @@ export default class Input extends Block {
                     }
                 },
                 focus: (e: THTMLElementEventInputOrTextArea) => {
-                    const {value} = getValueAndNameTarget(e);
-                    if (pattern) {
-                        this.validateInput(value);
-                    }
                     if (focus) {
                         focus(e)
                     }
-                    if (document.activeElement !== e.target) {
-                        e.target.focus();
-                    }
-
                 },
                 keyup: (e: THTMLElementEventInputOrTextArea) => {
                     const {value} = getValueAndNameTarget(e);
@@ -87,13 +107,14 @@ export default class Input extends Block {
                     if (keyup) {
                         keyup(e)
                     }
-                    if (document.activeElement !== e.target) {
-                        e.target.focus();
-                    }
                 },
                 type,
                 name,
                 textarea,
+                value
+            }),
+            errorComponent: new ErrorBlock({
+                error
             }),
             validateInput: (value: string) => this.validateInput(value),
             isValidInput: (value: string) => this.isValidInput(value),
@@ -106,28 +127,22 @@ export default class Input extends Block {
         return pattern ? value.match(pattern) : true;
     }
 
-
-    validateInput(value: string) {
-        const {error, classes, errorMessage, pattern} = this.props;
+    validateInput(value = '') {
+        const {error, errorMessage, pattern} = this.props;
         if (pattern) {
             if (!value.match(pattern)) {
                 if (error !== errorMessage) {
-                    this.setProps({error: errorMessage, classes: [...classes, 'error']})
+                    this.props.errorComponent.setProps({error: errorMessage})
                 }
             } else {
-                const newClasses = [...classes].filter(cl => cl !== 'error');
-                if (error) {
-                    this.setProps({error: '', classes: [...newClasses]});
-                }
+                this.props.errorComponent.setProps({error: ''});
             }
         }
     }
 
-
     render() {
         return compileHandlebars(wrapperInputTmpl, {
-            ...this.props,
-            input: this.props.input.getContent().outerHTML,
+            ...getContentFromComponentProps(this.props),
         });
     }
 }

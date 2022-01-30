@@ -1,1 +1,1 @@
-export const buttonTmpl = `<button type="{{type}}" class="button {{classesButton}}">{{{label}}}</button>`;
+export const buttonTmpl = `<button type="{{type}}" class="{{#if defaultView}}button{{/if}} {{classesButton}}">{{{label}}}</button>`;
