@@ -23,12 +23,12 @@
     "server": "node server.js",
     "stylelint": "stylelint \"**/*.scss\" --fix",
     "eslint": "eslint \"**/*.ts\" --fix",
-    "test": "mocha -r jsdom-global/register"
+    "test": "mocha -r jsdom-global/register",
+    "pre-commit": "npm run test && npm run eslint && npm run stylelint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint:all",
-      "pre-push": "npm run other command"
+      "pre-commit": "npm-run pre-commit"
     }
   },
   "devDependencies": {
