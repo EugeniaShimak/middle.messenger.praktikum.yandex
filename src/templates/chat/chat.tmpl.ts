@@ -1,32 +1,26 @@
 import '../common/partials/wrapper_center_layout.tmpl';
 import '../common/partials/list_helper.ts';
 
-const defaultAvatar = new URL(
-    '../../../static/img/avatar.png',
-    import.meta.url
-);
+// @ts-ignore
+import defaultAvatar from '../../../static/img/avatar.png';
+// @ts-ignore
+import threePoints from '../../../static/icons/threePoints.svg';
+// @ts-ignore
+import plane from '../../../static/icons/plane.svg';
+// @ts-ignore
+import attach from '../../../static/icons/attach.svg';
+// @ts-ignore
+import addBtn from '../../../static/icons/addBtn.svg';
+// @ts-ignore
+import deleteBtn from '../../../static/icons/deleteBtn.svg';
+
 
 export const iconsUrl = {
-    plane: new URL(
-        '../../../static/icons/plane.svg',
-        import.meta.url
-    ),
-    attach: new URL(
-        '../../../static/icons/attach.svg',
-        import.meta.url
-    ),
-    threePoints: new URL(
-        '../../../static/icons/threePoints.svg',
-        import.meta.url
-    ),
-    addBtn: new URL(
-        '../../../static/icons/addBtn.svg',
-        import.meta.url
-    ),
-    deleteBtn: new URL(
-        '../../../static/icons/deleteBtn.svg',
-        import.meta.url
-    ),
+    plane: plane,
+    attach: attach,
+    threePoints: threePoints,
+    addBtn: addBtn,
+    deleteBtn: deleteBtn,
 }
 
 export const chatTmpl = `{{{header}}}

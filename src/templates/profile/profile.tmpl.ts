@@ -1,9 +1,6 @@
 import '../common/partials/wrapper_center_layout.tmpl';
-
-const defaultAvatar =  new URL(
-    '../../../static/img/avatar.png',
-    import.meta.url
-);
+// @ts-ignore
+import defaultAvatar from '../../../static/img/avatar.png';
 
 export const profileTmpl = `{{{header}}}
 <main class="profile_container">
