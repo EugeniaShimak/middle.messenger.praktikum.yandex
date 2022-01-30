@@ -24,7 +24,8 @@
     "stylelint": "stylelint \"**/*.scss\" --fix",
     "eslint": "eslint \"**/*.ts\" --fix",
     "test": "mocha -r jsdom-global/register",
-    "pre-commit": "npm run test && npm run eslint && npm run stylelint"
+    "pre-commit": "npm run test && npm run eslint && npm run stylelint",
+    "postinstall": "husky install"
   },
   "husky": {
     "hooks": {
